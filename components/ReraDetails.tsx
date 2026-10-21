@@ -147,13 +147,15 @@ export default function ReraDetails() {
 
           {/* Verify CTA */}
           <div className="text-center">
-            <EclipseButton
-              variant="outline"
-              text="Verify on Assam RERA Portal"
-              rightIcon={<ExternalLink size={14} />}
-              size="default"
-              onClick={() => window.open(rera.officialPortal, "_blank")}
-            />
+            <a
+              href={rera.officialPortal}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border border-[#171717]/30 hover:border-[#C8A45D] bg-white hover:bg-[#171717] text-[#171717] hover:text-[#C8A45D] font-bold text-xs uppercase tracking-widest transition-all duration-300 shadow-sm hover:shadow-md active:scale-95"
+            >
+              <span>Verify on Assam RERA Portal</span>
+              <ExternalLink size={15} />
+            </a>
           </div>
         </div>
       </div>

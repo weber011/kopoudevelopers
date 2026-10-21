@@ -59,12 +59,12 @@ export default function EnquiryForm() {
   };
 
   const fieldClass = (hasError: boolean) =>
-    `w-full px-4 py-3 border text-sm bg-white text-[#171717] focus:outline-none focus:border-[#C8A45D] transition-colors ${
+    `w-full px-4 py-3 border text-base bg-white text-[#171717] rounded-lg focus:outline-none focus:border-[#C8A45D] focus:ring-1 focus:ring-[#C8A45D] transition-all ${
       hasError ? "border-red-400" : "border-[#E5E1DA]"
     }`;
 
   return (
-    <section id="contact" className="section bg-[#F4F1EA]">
+    <section id="contact" className="section bg-[#FAF8F5]">
       <div className="container mx-auto px-4 lg:px-6">
         <div className="max-w-2xl mx-auto">
           {/* Header */}
@@ -116,7 +116,7 @@ export default function EnquiryForm() {
             /* Form */
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="bg-white border border-[#E5E1DA] p-6 lg:p-10 space-y-5"
+              className="bg-white border border-[#E5E1DA] rounded-2xl p-6 sm:p-10 space-y-6 shadow-xl shadow-black/[0.03]"
               noValidate
             >
               {/* Name */}
@@ -276,14 +276,13 @@ export default function EnquiryForm() {
               </div>
 
               {/* Submit */}
-              <EclipseButton
+              <button
                 type="submit"
-                variant="primary"
-                text={isSubmitting ? "Preparing…" : "Send Enquiry"}
-                isLoading={isSubmitting}
-                size="default"
-                className="w-full"
-              />
+                disabled={isSubmitting}
+                className="w-full py-4 px-6 rounded-full bg-[#171717] hover:bg-[#C8A45D] text-white hover:text-[#171717] font-bold text-xs uppercase tracking-widest transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer active:scale-[0.99]"
+              >
+                <span>{isSubmitting ? "Preparing…" : "Send Enquiry"}</span>
+              </button>
 
               <p className="text-xs text-[#6B6B6B] text-center">
                 No commitment required. We&rsquo;ll respond with project information only.

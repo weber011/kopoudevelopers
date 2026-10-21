@@ -13,7 +13,7 @@ interface EclipseButtonProps
   /** The text label to display inside the button. */
   text?: string;
   /** Visual style variant controlling color and border. */
-  variant?: 'primary' | 'outline' | 'ghost' | 'destructive';
+  variant?: 'primary' | 'outline' | 'ghost' | 'destructive' | 'gold';
   /** Size preset controlling padding and font size. */
   size?: 'default' | 'sm' | 'lg' | 'icon';
   /** If true, shows a loading spinner and disables interaction. */
@@ -25,11 +25,8 @@ interface EclipseButtonProps
 }
 
 /**
- * A highly interactive button featuring a "magnetic" pull effect and a
- * distinct "eclipse" color inversion animation on hover.
- *
- * It renders two layers of content: a base layer and a clipped overlay layer
- * that tracks the mouse position to create the spotlight effect.
+ * A highly interactive luxury button featuring subtle magnetic pull
+ * and a smooth eclipse spotlight effect on hover.
  */
 const EclipseButton = React.forwardRef<HTMLButtonElement, EclipseButtonProps>(
   (
@@ -48,16 +45,31 @@ const EclipseButton = React.forwardRef<HTMLButtonElement, EclipseButtonProps>(
   ) => {
     const buttonRef = React.useRef<HTMLButtonElement>(null);
     const [isHovered, setIsHovered] = React.useState(false);
+    const [btnDimensions, setBtnDimensions] = React.useState({ w: 200, h: 48 });
 
-    const mouseX = useMotionValue(0);
-    const mouseY = useMotionValue(0);
+    const mouseX = useMotionValue(100);
+    const mouseY = useMotionValue(24);
 
-    const maskX = useSpring(mouseX, { stiffness: 250, damping: 25 });
-    const maskY = useSpring(mouseY, { stiffness: 250, damping: 25 });
+    const springConfig = { stiffness: 200, damping: 20 };
+    const maskX = useSpring(mouseX, springConfig);
+    const maskY = useSpring(mouseY, springConfig);
 
-    // Map the spring values to a subtle offset to create the "magnetic" pull effect.
-    const buttonX = useTransform(maskX, (value) => (value - 50) * 0.15);
-    const buttonY = useTransform(maskY, (value) => (value - 20) * 0.15);
+    // Subtle magnetic shift only when hovered
+    const buttonX = useTransform(maskX, (x) =>
+      isHovered ? (x - btnDimensions.w / 2) * 0.08 : 0
+    );
+    const buttonY = useTransform(maskY, (y) =>
+      isHovered ? (y - btnDimensions.h / 2) * 0.08 : 0
+    );
+
+    const handleMouseEnter = (e: React.MouseEvent<HTMLButtonElement>) => {
+      if (!buttonRef.current || disabled || isLoading) return;
+      const rect = buttonRef.current.getBoundingClientRect();
+      setBtnDimensions({ w: rect.width, h: rect.height });
+      mouseX.set(e.clientX - rect.left);
+      mouseY.set(e.clientY - rect.top);
+      setIsHovered(true);
+    };
 
     const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
       if (!buttonRef.current || disabled || isLoading) return;
@@ -66,17 +78,27 @@ const EclipseButton = React.forwardRef<HTMLButtonElement, EclipseButtonProps>(
       mouseY.set(e.clientY - rect.top);
     };
 
+    const handleMouseLeave = () => {
+      setIsHovered(false);
+      mouseX.set(btnDimensions.w / 2);
+      mouseY.set(btnDimensions.h / 2);
+    };
+
     const variantStyles = {
       primary: {
-        base: 'bg-neutral-950 text-white border-neutral-950',
-        overlay: 'bg-white text-neutral-950',
+        base: 'bg-[#171717] text-white border-[#171717] shadow-sm',
+        overlay: 'bg-[#C8A45D] text-[#171717]',
       },
       outline: {
-        base: 'bg-transparent text-neutral-900 border-neutral-200',
-        overlay: 'bg-neutral-900 text-white',
+        base: 'bg-transparent text-[#171717] border-[#171717]/30 hover:border-[#171717]',
+        overlay: 'bg-[#171717] text-white',
+      },
+      gold: {
+        base: 'bg-[#C8A45D] text-[#171717] border-[#C8A45D] shadow-sm',
+        overlay: 'bg-[#171717] text-[#C8A45D]',
       },
       ghost: {
-        base: 'bg-transparent text-neutral-600 border-transparent',
+        base: 'bg-transparent text-neutral-700 border-transparent',
         overlay: 'bg-neutral-100 text-neutral-900',
       },
       destructive: {
@@ -86,116 +108,87 @@ const EclipseButton = React.forwardRef<HTMLButtonElement, EclipseButtonProps>(
     };
 
     const sizeStyles = {
-      default: 'h-12 px-8 text-sm',
-      sm: 'h-10 px-5 text-xs',
-      lg: 'h-16 px-10 text-base',
+      default: 'h-12 px-7 text-xs',
+      sm: 'h-10 px-5 text-[11px]',
+      lg: 'h-14 px-9 text-sm',
       icon: 'h-12 w-12 p-0',
     };
 
-    const currentVariant = variantStyles[variant];
+    const currentVariant = variantStyles[variant as keyof typeof variantStyles] || variantStyles.primary;
 
-    const renderContent = (isOverlay: boolean = false) => {
+    const renderContent = () => {
       const hasText = text && text.length > 0;
 
       return (
-        <motion.span
+        <span
           className={cn(
-            'flex items-center justify-center',
+            'inline-flex items-center justify-center font-bold uppercase tracking-wider',
             hasText && (leftIcon || rightIcon || isLoading) ? 'gap-2' : ''
           )}
-          animate={{
-            letterSpacing: isHovered && hasText ? '0.05em' : '0em',
-            scale: isHovered ? 1.02 : 1,
-          }}
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
-          {isLoading && <Loader2 className='h-4 w-4 animate-spin' />}
+          {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
           {!isLoading && leftIcon && (
-            <span className='flex items-center justify-center'>{leftIcon}</span>
+            <span className="flex items-center justify-center flex-shrink-0">{leftIcon}</span>
           )}
-          {hasText && <span>{text}</span>}
+          {hasText && <span className="whitespace-nowrap">{text}</span>}
           {!isLoading && rightIcon && (
-            <span className='flex items-center justify-center'>{rightIcon}</span>
+            <span className="flex items-center justify-center flex-shrink-0">{rightIcon}</span>
           )}
-        </motion.span>
+        </span>
       );
     };
+
+    // Calculate max radius needed to cover button completely from any corner
+    const maxRadius = Math.max(btnDimensions.w, btnDimensions.h) * 1.5;
 
     return (
       <motion.button
         ref={buttonRef}
         className={cn(
-          'relative isolate overflow-hidden rounded-full border font-bold uppercase tracking-widest',
-          'inline-flex items-center justify-center',
+          'relative isolate overflow-hidden rounded-full border transition-shadow duration-300',
+          'inline-flex items-center justify-center select-none text-center',
           currentVariant.base,
           sizeStyles[size],
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C8A45D] focus-visible:ring-offset-2',
           (disabled || isLoading) && 'cursor-not-allowed opacity-60',
           className
         )}
         style={{ x: buttonX, y: buttonY }}
+        onMouseEnter={handleMouseEnter}
         onMouseMove={handleMouseMove}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => {
-          setIsHovered(false);
-          mouseX.set(0);
-          mouseY.set(0);
-        }}
+        onMouseLeave={handleMouseLeave}
         disabled={disabled || isLoading}
-        whileTap={{ scale: 0.95 }}
-        type='button'
+        whileTap={{ scale: 0.97 }}
+        type="button"
         {...(props as any)}
       >
-        {/* SVG definition for fractal noise texture */}
-        <svg className='absolute hidden'>
-          <filter id='noiseFilter'>
-            <feTurbulence
-              type='fractalNoise'
-              baseFrequency='0.8'
-              numOctaves='3'
-              stitchTiles='stitch'
-            />
-            <feColorMatrix
-              type='matrix'
-              values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 15 -2'
-            />
-            <feComposite operator='in' in2='SourceGraphic' result='monoNoise' />
-            <feBlend in='SourceGraphic' in2='monoNoise' mode='screen' />
-          </filter>
-        </svg>
-
         {/* Base Layer */}
-        <span className='relative z-10 pointer-events-none'>
+        <span className="relative z-10 pointer-events-none flex items-center justify-center">
           {renderContent()}
         </span>
 
-        {/* Overlay Layer — eclipse/spotlight effect */}
+        {/* Overlay Layer — smooth expanding spotlight eclipse */}
         <motion.div
           className={cn(
             'absolute inset-0 z-20 flex items-center justify-center',
             'pointer-events-none select-none',
-            currentVariant.overlay,
-            sizeStyles[size]
+            currentVariant.overlay
           )}
           style={{
             clipPath: useTransform([maskX, maskY], ([x, y]) =>
               isHovered
-                ? `circle(100px at ${x}px ${y}px)`
-                : `circle(0px at 50% 50%)`
+                ? `circle(${maxRadius}px at ${x}px ${y}px)`
+                : `circle(0px at ${x}px ${y}px)`
             ),
             WebkitClipPath: useTransform([maskX, maskY], ([x, y]) =>
               isHovered
-                ? `circle(100px at ${x}px ${y}px)`
-                : `circle(0px at 50% 50%)`
+                ? `circle(${maxRadius}px at ${x}px ${y}px)`
+                : `circle(0px at ${x}px ${y}px)`
             ),
           }}
-          aria-hidden='true'
+          aria-hidden="true"
         >
-          <div
-            className='absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none'
-            style={{ filter: 'url(#noiseFilter)' }}
-          />
-          {renderContent(true)}
+          {renderContent()}
         </motion.div>
       </motion.button>
     );

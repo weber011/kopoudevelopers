@@ -13,15 +13,20 @@ export default function ProjectHighlights() {
   return (
     <section id="highlights" className="bg-[#171717] py-6">
       <div className="container mx-auto px-4 lg:px-6">
-        <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-[#C8A45D]/20">
-          {highlights.map((h, i) => (
-            <div key={h.label} className="flex items-center gap-3 px-4 lg:px-8 py-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6">
+          {highlights.map((h) => (
+            <div
+              key={h.label}
+              className="flex items-center gap-2.5 sm:gap-3 p-3 sm:p-4 bg-white/5 border border-white/10 rounded-sm"
+            >
               <h.icon size={20} className="text-[#C8A45D] flex-shrink-0" />
-              <div>
-                <div className="text-[#6B6B6B] text-xs uppercase tracking-widest mb-0.5">
+              <div className="min-w-0">
+                <div className="text-[#6B6B6B] text-[10px] sm:text-xs uppercase tracking-widest mb-0.5 truncate">
                   {h.label}
                 </div>
-                <div className="text-white font-semibold text-sm">{h.value}</div>
+                <div className="text-white font-semibold text-xs sm:text-sm truncate">
+                  {h.value}
+                </div>
               </div>
             </div>
           ))}

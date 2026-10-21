@@ -19,10 +19,11 @@ import ContactSection from "@/components/ContactSection";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import MobileStickyBar from "@/components/MobileStickyBar";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#F8F6F1] selection:bg-[#C8A45D]/30 selection:text-black">
+    <main className="min-h-screen bg-[#F8F6F1] selection:bg-[#C8A45D]/30 selection:text-black pb-20 md:pb-0 overflow-x-hidden">
       {/* 1. Navbar with Top Announcement and Official Kopou Developers Logo */}
       <Navbar />
 
@@ -83,8 +84,11 @@ export default function Home() {
       {/* 20. Luxury Footer with Official Brand Mark */}
       <Footer />
 
-      {/* 21. Floating Instant WhatsApp Action */}
+      {/* 21. Floating Instant WhatsApp Action (Desktop) */}
       <WhatsAppButton />
+
+      {/* 22. Mobile Fixed Quick-Contact Bar (Call, WhatsApp, Book Tour) */}
+      <MobileStickyBar />
     </main>
   );
 }

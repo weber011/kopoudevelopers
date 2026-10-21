@@ -47,14 +47,14 @@ export default function ApartmentConfigurations() {
           </h2>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-2 gap-8 items-stretch">
           {apartments.map((apt) => (
             <div
               key={apt.type}
-              className="group border border-[#E5E1DA] overflow-hidden bg-white hover:shadow-lg transition-shadow duration-300"
+              className="group border border-[#E5E1DA] hover:border-[#C8A45D] overflow-hidden bg-white rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
             >
               {/* Image */}
-              <div className="relative aspect-[4/3] overflow-hidden">
+              <div className="relative aspect-[16/10] overflow-hidden">
                 <Image
                   src={apt.image}
                   alt={`${apt.title} at Kopou Apartments, Tezpur`}

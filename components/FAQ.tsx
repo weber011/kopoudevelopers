@@ -59,7 +59,7 @@ export default function FAQ() {
             </h2>
           </div>
 
-          <div className="divide-y divide-[#E5E1DA] border border-[#E5E1DA]">
+          <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-[#E5E1DA] divide-y divide-[#E5E1DA]">
             {faqs.map((faq, i) => (
               <div key={i}>
                 <button

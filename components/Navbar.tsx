@@ -49,9 +49,10 @@ export default function Navbar() {
   return (
     <>
       {/* Announcement Bar */}
-      <div className="bg-[#171717] text-[#C8A45D] text-center text-xs py-2 px-4 font-medium tracking-widest z-50 relative">
-        RERA REGISTERED · RERAA ST 139 OF 2025-2026 &nbsp;·&nbsp; 2 BHK STARTING ₹31 LAKHS* &nbsp;·&nbsp;
-        <a href={`tel:${SITE_CONFIG.company.phones.primary}`} className="underline underline-offset-2">
+      <div className="bg-[#171717] text-[#C8A45D] text-center text-[11px] sm:text-xs py-2 px-3 sm:px-4 font-medium tracking-wider sm:tracking-widest z-50 relative border-b border-[#C8A45D]/20">
+        <span className="hidden sm:inline">RERA REGISTERED · RERAA ST 139 OF 2025-2026 &nbsp;·&nbsp; </span>
+        <span>2 BHK FROM ₹31 LAKHS*</span> &nbsp;·&nbsp;
+        <a href={`tel:${SITE_CONFIG.company.phones.primary}`} className="underline underline-offset-2 hover:text-white transition-colors">
           CALL NOW
         </a>
       </div>

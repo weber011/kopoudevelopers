@@ -114,7 +114,7 @@ export default function LocationMap() {
 
         <div className="grid lg:grid-cols-3 gap-8 items-start">
           {/* Address card */}
-          <div className="bg-white border border-[#E5E1DA] p-8">
+          <div className="bg-white border border-[#E5E1DA] rounded-2xl p-6 sm:p-8 shadow-sm">
             <div className="flex items-center gap-2 mb-6">
               <MapPin size={18} className="text-[#C8A45D]" />
               <span className="section-label">Project Address</span>
@@ -128,30 +128,32 @@ export default function LocationMap() {
               Tezpur, Sonitpur, Assam – 784501
             </address>
 
-            <div className="border-t border-[#E5E1DA] pt-6 mb-6">
-              <p className="text-xs text-[#6B6B6B] mb-4">
+            <div className="border-t border-[#E5E1DA] pt-5 mb-6">
+              <p className="text-xs text-[#6B6B6B] leading-relaxed">
                 ⚠️ Map marker is approximate. Please confirm exact address with
                 Kopou Developers before visiting.
               </p>
             </div>
 
             <div className="space-y-3">
-              <EclipseButton
-                variant="primary"
-                text="Get Directions"
-                leftIcon={<Navigation size={14} />}
-                size="sm"
-                className="w-full"
-                onClick={() => window.open(GOOGLE_MAPS_DIRECTIONS, "_blank")}
-              />
-              <EclipseButton
-                variant="outline"
-                text="Open in Google Maps"
-                leftIcon={<ExternalLink size={14} />}
-                size="sm"
-                className="w-full"
-                onClick={() => window.open(GOOGLE_MAPS_VIEW, "_blank")}
-              />
+              <a
+                href={GOOGLE_MAPS_DIRECTIONS}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-3.5 px-6 rounded-full bg-[#171717] hover:bg-[#C8A45D] text-white hover:text-[#171717] font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-sm hover:shadow-md flex items-center justify-center gap-2"
+              >
+                <Navigation size={14} />
+                <span>Get Directions</span>
+              </a>
+              <a
+                href={GOOGLE_MAPS_VIEW}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-3.5 px-6 rounded-full border border-[#171717]/25 hover:border-[#171717] text-[#171717] font-bold text-xs uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 hover:bg-[#171717] hover:text-white"
+              >
+                <ExternalLink size={14} />
+                <span>Open in Google Maps</span>
+              </a>
             </div>
           </div>
 
@@ -159,7 +161,7 @@ export default function LocationMap() {
           <div className="lg:col-span-2">
             <div
               ref={mapRef}
-              className="w-full h-[420px] bg-[#E9E3D8] border border-[#E5E1DA]"
+              className="w-full h-[420px] bg-[#E9E3D8] border border-[#E5E1DA] rounded-2xl overflow-hidden shadow-sm"
               aria-label="Interactive map showing approximate location of Kopou Apartments, Tezpur"
               role="application"
             >

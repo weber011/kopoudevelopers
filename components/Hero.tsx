@@ -47,7 +47,7 @@ export default function Hero() {
 
           {/* Headline */}
           <h1
-            className="text-white text-5xl lg:text-7xl font-serif font-semibold leading-tight mb-4 animate-fade-up"
+            className="text-white text-3xl sm:text-5xl lg:text-7xl font-serif font-semibold leading-tight mb-4 animate-fade-up"
             style={{ animationDelay: "0.2s", opacity: 0, animationFillMode: "forwards" }}
           >
             Your Next Chapter<br />
@@ -56,7 +56,7 @@ export default function Hero() {
 
           {/* Sub-headline */}
           <p
-            className="text-[#E9E3D8] text-lg lg:text-xl font-light mb-3 animate-fade-up"
+            className="text-[#E9E3D8] text-base sm:text-lg lg:text-xl font-light mb-3 animate-fade-up"
             style={{ animationDelay: "0.3s", opacity: 0, animationFillMode: "forwards" }}
           >
             Thoughtfully Designed Homes. A Better Way to Live.
@@ -64,7 +64,7 @@ export default function Hero() {
 
           {/* Description */}
           <p
-            className="text-[#E9E3D8]/80 text-base mb-6 max-w-lg animate-fade-up"
+            className="text-[#E9E3D8]/80 text-sm sm:text-base mb-6 max-w-lg animate-fade-up"
             style={{ animationDelay: "0.4s", opacity: 0, animationFillMode: "forwards" }}
           >
             Discover 2 &amp; 3 BHK residential apartment options in Harigaon,
@@ -73,30 +73,30 @@ export default function Hero() {
 
           {/* Price Badge */}
           <div
-            className="inline-flex items-center gap-3 border border-[#C8A45D]/50 bg-[#C8A45D]/10 px-4 py-2.5 mb-8 animate-fade-up"
+            className="inline-flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 border border-[#C8A45D]/50 bg-[#171717]/80 backdrop-blur-sm px-4 py-2.5 mb-8 animate-fade-up max-w-full"
             style={{ animationDelay: "0.45s", opacity: 0, animationFillMode: "forwards" }}
           >
-            <span className="text-[#C8A45D] font-bold text-lg">
+            <span className="text-[#C8A45D] font-bold text-lg sm:text-xl">
               {SITE_CONFIG.project.startingPrice}
             </span>
-            <span className="text-[#E9E3D8]/70 text-xs border-l border-[#C8A45D]/30 pl-3">
+            <span className="text-[#E9E3D8]/70 text-xs sm:border-l sm:border-[#C8A45D]/30 sm:pl-3">
               Indicative · 2 BHK · Subject to confirmation
             </span>
           </div>
 
           {/* CTA Buttons */}
           <div
-            className="flex flex-wrap gap-3 mb-10 animate-fade-up"
+            className="flex flex-col sm:flex-row gap-3 mb-10 animate-fade-up max-w-md sm:max-w-none"
             style={{ animationDelay: "0.5s", opacity: 0, animationFillMode: "forwards" }}
           >
-            <button onClick={scrollToApts} className="btn-gold">
+            <button onClick={scrollToApts} className="btn-gold justify-center w-full sm:w-auto py-3">
               Explore Apartments
             </button>
             <a
               href={WA_LINKS.general}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-whatsapp"
+              className="btn-whatsapp justify-center w-full sm:w-auto py-3"
             >
               <MessageCircle size={16} />
               Enquire on WhatsApp

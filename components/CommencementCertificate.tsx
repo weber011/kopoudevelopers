@@ -43,9 +43,9 @@ export default function CommencementCertificate() {
               </div>
             </div>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-col sm:flex-row gap-4">
               <EclipseButton
-                variant="primary"
+                variant="gold"
                 text="View Full Certificate"
                 leftIcon={<Eye size={16} />}
                 onClick={() => setIsOpen(true)}
@@ -53,9 +53,9 @@ export default function CommencementCertificate() {
               <a
                 href="/images/commencement-certificate.jpeg"
                 download="Kopou-Developers-Commencement-Certificate.jpeg"
-                className="btn-outline border-white/30 text-white hover:bg-white hover:text-black inline-flex items-center gap-2 text-sm"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full border border-white/30 hover:border-white text-white hover:bg-white hover:text-[#171717] font-bold text-xs uppercase tracking-wider transition-all duration-300"
               >
-                <Download size={16} /> Download Copy
+                <Download size={15} /> <span>Download Copy</span>
               </a>
             </div>
           </div>

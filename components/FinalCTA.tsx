@@ -19,22 +19,23 @@ export default function FinalCTA() {
           Connect with the Kopou Developers team to learn more about
           Kopou Apartments — pricing, floor plans, site visits, and everything in between.
         </p>
-        <div className="flex flex-wrap justify-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-lg mx-auto">
           <EclipseButton
-            variant="outline"
+            variant="gold"
             text="Schedule a Site Visit"
             leftIcon={<Calendar size={16} />}
-            size="lg"
+            size="default"
+            className="w-full sm:w-auto"
             onClick={() => window.open(WA_LINKS.siteVisit, "_blank")}
           />
           <a
             href={WA_LINKS.general}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-whatsapp px-8 py-4 text-base"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg active:scale-95"
           >
-            <MessageCircle size={18} />
-            Enquire on WhatsApp
+            <MessageCircle size={16} />
+            <span>Enquire on WhatsApp</span>
           </a>
         </div>
         <p className="text-white/30 text-xs mt-8">
